@@ -1,16 +1,17 @@
-// 7-segment pins
-//             A  B  C  D  E  F  G
-const int segPins[] = {2, 3, 4, 5, 6, 7, 8};
+// NAME: KHYLLE P. VILLASURDA
+// BSIT - 4
+// SAT 7:30 - 1:30
+// Wiring Color Coded
+// Green = A, B
+// Brown = C, D, E
+// Yellow = F, G
 
-// Binary LED pins
-// LED1 = bit 0 (LSB)
-// LED4 = bit 3 (MSB)
-const int ledPins[] = {9, 10, 11, 12};
+// Instead of having to set them one by one, I decided to put them on a array.
+const int segPins [] = {2, 3, 4, 5, 6, 7, 8};
+const int ledPins [] = {9, 10, 11, 12};
 
-// 7-segment patterns for hexadecimal 0-F
-// Order: A B C D E F G
 const byte hexPatterns[16][7] = {
-  // A  B  C  D  E  F  G
+// A, B, C, D, E, F, G
   {1, 1, 1, 1, 1, 1, 0}, // 0
   {0, 1, 1, 0, 0, 0, 0}, // 1
   {1, 1, 0, 1, 1, 0, 1}, // 2
@@ -29,17 +30,24 @@ const byte hexPatterns[16][7] = {
   {1, 0, 0, 0, 1, 1, 1}  // F
 };
 
+// Regarding the type of 7 segment you have:
+// If Common Anode, connecting the COM Pin to the 5V and setting the digitalWrite to LOW makes it light up.
+// While Common Cathode connecting the COM Pin to the GND and setting the digitalWrite to HIGH turns on the LED.
+
 void setup() {
+  // Looping each segPins to set its pinMode to output.
+for (int i = 0; i < 7; i++) {
+  pinMode(segPins[i], OUTPUT);
 
-  // Set 7-segment pins as outputs
-  for (int i = 0; i < 7; i++) {
-    pinMode(segPins[i], OUTPUT);
-  }
+// digitalWrite(segPins[i], HIGH);
+}
 
-  // Set binary LED pins as outputs
-  for (int i = 0; i < 4; i++) {
-    pinMode(ledPins[i], OUTPUT);
-  }
+for (int i = 0; i < 4; i++) {
+  pinMode(ledPins[i], OUTPUT);
+
+// digitalWrite(ledPins[i], HIGH);
+}
+
 }
 
 void displayHex(int number) {
@@ -65,3 +73,22 @@ void loop() {
     delay(1000);
   }
 }
+
+// These are the expected results
+
+// 0 = 0 0 0 0
+// 1 = 0 0 0 1
+// 2 = 0 0 1 0
+// 3 = 0 0 1 1
+// 4 = 0 1 0 0
+// 5 = 0 1 0 1
+// 6 = 0 1 1 0
+// 7 = 0 1 1 1
+// 8 = 1 0 0 0
+// 9 = 1 0 0 1
+// 10 (A) = 1 0 1 0
+// 11 (b) = 1 0 1 1
+// 12 (C) = 1 1 0 0
+// 13 (d) = 1 1 0 1
+// 14 (E) = 1 1 1 0
+// 15 (F) = 1 1 1 1
